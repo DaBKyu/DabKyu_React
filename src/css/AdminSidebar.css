@@ -1,0 +1,43 @@
+.sidebar {
+    height: 100vh;
+    background-color: #00008b;
+    color: white;
+    padding-top: 20px;
+    position: fixed; /* 사이드바를 고정 */
+    width: 300px;
+    overflow-y: auto; /* 내용이 길어지면 스크롤 */
+    top: 0px;
+    left: 0px; /* 왼쪽 여백 */
+    right: 20px; /* 오른쪽 여백 */
+}
+
+.sidebar a {
+    color: white;
+    text-decoration: none;
+    margin: 10px 0;
+    display: block;
+    padding: 10px;
+    font-size: 17px;
+}
+
+.sidebar a:hover {
+    background-color: #0056b3;
+}
+
+.sidebar a.d-flex {
+    display: flex;
+    align-items: center;
+}
+
+.sidebar a .mr-2 {
+    margin-right: 10px;
+}
+/* 들여쓰기 */
+.sidebar a.indent {
+    margin-left: 20px; /* 들여쓰기 크기 */
+}
+
+/* 여백 추가 */
+.sidebar a.space {
+    margin-bottom: 30px; /* 쿠폰 관리 아래에 여백을 추가 */
+}

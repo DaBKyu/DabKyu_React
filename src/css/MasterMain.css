@@ -1,0 +1,62 @@
+/* AdminPage.css */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.main-content {
+    margin-left: 220px;
+    padding: 20px;
+}
+
+.card {
+    text-align: center;
+    margin: 10px 0;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.card-body {
+    padding: 20px;
+}
+
+.card-body h6 {
+    font-size: 16px;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.card-body p {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+}
+
+.chart {
+    width: 100%; /* 부모 요소(card)에 맞게 크기를 설정 */
+    height: auto; /* 비율을 유지하며 크기 조정 */
+    display: flex; /* 컴포넌트를 중앙에 정렬 */
+    justify-content: center;
+    align-items: center;
+    overflow: hidden; /* 차트가 영역을 넘지 않도록 */
+}
+
+
+/* 반응형 디자인 */
+@media (max-width: 768px) {
+    .sidebar {
+        width: 100%;
+        height: auto;
+        position: relative;
+    }
+
+    .main-content {
+        margin-left: 0;
+    }
+
+    .card {
+        margin-bottom: 20px;
+    }
+}

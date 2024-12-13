@@ -1,36 +1,23 @@
-import {Route, Routes} from 'react-router-dom';
-import logo from './logo.svg';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import './App.css';
-
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
-
-/*
+import AdminMain from './component/AdminMain.js';
+import ProductList from './component/ProductList.js';
+import ProductDetail from './component/ProductDetail.js';
+import PostProduct from './component/PostProduct.js';
 const App = () => {
-  return(
-    <Routes>
-      <Route path="/" element={< />} />
-    </Routes>
+  return (
+    <BrowserRouter> 
+      <Routes>
+        <Route path="/master/main" element={<AdminMain />} />
+        <Route path="/master/productList" element={<ProductList />} />
+        <Route path="/master/productDetail/:productSeqno" element={<ProductDetail />} />
+        <Route path="/master/postProduct" element={<PostProduct />} />
+         
+      </Routes>
+    </BrowserRouter>
   );
 }
-*/
+
+
 
 export default App;
