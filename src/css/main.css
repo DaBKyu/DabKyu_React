@@ -1,0 +1,157 @@
+aside {
+    width: 230px;
+    margin-top: 140px;
+    position: absolute;
+    top: 0;
+    background: rgb(255, 255, 255);
+    transform: translateX(0); /* 메뉴를 처음에는 왼쪽으로 숨김 */
+    transition: transform 0.3s ease; /* 슬라이딩 애니메이션 */
+    z-index: 9999;
+    border-top: solid 1px #e3e3e3;
+    border-bottom: solid 1px #e3e3e3;
+    font-family: "Roboto", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+
+}
+.slider-container {
+    position: relative;
+    width: 100%;
+    max-width: 930px;
+    height: 65vh;
+    margin: auto 70px auto auto; /* 좌우 자동 여백 */
+    overflow: hidden;
+    padding: 5px 0; /* 상하 여백 추가 */
+    display: grid;
+    grid-template-columns: repeat(1, 1fr); /* 한 줄에 1개의 카드 (필요시 수정 가능) */
+    grid-template-rows: repeat(2, 150px); /* 총 2줄로 제한 */
+    gap: 15px; /* 카드 간의 간격 */
+    align-items: center; /* 수직 중앙 정렬 */
+    justify-items: center; /* 수평 중앙 정렬 */
+    margin-top: 0; /* 상단 여백 제거 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* 카드들을 담고 있는 슬라이더 */
+.movie-slider {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* 한 줄에 4개의 카드 */
+    grid-template-rows: repeat(2, 1fr); /* 두 줄 */
+    gap: 20px; /* 카드 간격 */
+    width: 100%; /* 슬라이더 전체 너비 */
+    transition: transform 0.5s ease-in-out;
+    height: 100%;
+}
+
+/* 각 카드 스타일 */
+.movie-card {
+    width: 200px;
+    text-align: left;
+    background-color: white;
+    color: rgb(0, 0, 0);
+    border-radius: 10px;
+    overflow: hidden;
+    font-size: 12px;
+    /* border: 1px solid #11b8eb; */
+}
+
+/* 좌우 버튼 스타일 */
+button {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    background:#5a5252;
+    color: white;
+    border: none;
+    font-size: 24px;
+    color: white;
+    background:#5a5252;
+    border: none;
+    cursor: pointer;
+    border-radius: 50%;
+    display: block; /* 기본적으로 보이도록 설정 */
+    
+}
+
+button:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+.prev-btn {
+    left: 400px;
+    top: 380px;
+    z-index: 1;
+}
+
+.next-btn {
+    right: 400px;
+    top: 380px;
+    z-index: 1;
+}
+.sidebanner {
+    width: 230px;
+    height: 700px;
+    background: linear-gradient(135deg, #11b8eb, #8de4df); /* 그라데이션 배경 */
+    color: white;
+    font-family: "Roboto", sans-serif;
+    font-weight: bold;
+    font-size: 18px;
+    text-align: center;
+    line-height: 700px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 그림자 */
+    position: relative;
+}
+.menu-toggle{
+    display: none;
+}
+.ad-banner {
+    width: 230px;
+    height: 700px;
+    background: linear-gradient(to bottom, #ffcc00, #ff6600);
+    color: #ffffff;
+    font-family: Arial, sans-serif;
+    text-align: center;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    box-sizing: border-box;
+    position: relative;
+    margin-top: -60px;
+}
+
+.ad-banner h1 {
+    font-size: 24px;
+    margin: 20px 0;
+}
+
+.ad-banner p {
+    font-size: 16px;
+    margin: 10px 0 20px;
+}
+
+.ad-banner .cta-button {
+    display: inline-block;
+    padding: 10px 20px;
+    background: #ffffff;
+    color: #ff6600;
+    font-weight: bold;
+    text-decoration: none;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    transition: background 0.3s, color 0.3s;
+}
+
+.ad-banner .cta-button:hover {
+    background: #ff6600;
+    color: #ffffff;
+}
+
+.ad-banner img {
+    width: 100%;
+    height: auto;
+    margin-top: 20px;
+    border-radius: 5px;
+}

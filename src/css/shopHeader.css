@@ -158,3 +158,11 @@ position: relative;
     position: relative;
     border: none;
 }
+
+.icons {
+    text-decoration: none;
+    color: inherit;
+    display: inline-block;
+    text-align: center;
+    position: relative;
+}
