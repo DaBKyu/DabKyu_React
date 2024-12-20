@@ -6,7 +6,7 @@ const VisitorsByDaily = () => {
     
     const today = new Date().toISOString().split("T")[0]; // 오늘 날짜를 "YYYY-MM-DD" 형식으로 변환
     
-    const [startDate, setStartDate] = useState("2024-11-01");
+    const [startDate, setStartDate] = useState("2024-12-01");
     const [endDate, setEndDate] = useState(today);
     const [loading, setLoading] = useState(false);
     const chartContainerRef = React.useRef(null);

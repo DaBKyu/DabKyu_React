@@ -1,6 +1,6 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import React, { useState, useEffect } from "react";
-import "../css/MasterMain.css"; // CSS 파일 import
+import "../css/AdminMain.css"; // CSS 파일 import
 import "../css/AdminSidebar.css"; // CSS 파일 import
 import AdminSidebar from "./AdminSidebar"; // AdminSidebar 컴포넌트 import
 import SalesByDaily from "./SalesByDaily";
