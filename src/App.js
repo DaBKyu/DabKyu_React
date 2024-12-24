@@ -10,6 +10,9 @@ import CouponDetail from './component/CouponDetail.js';
 import CreateCoupon from './component/CreateCoupon.js';
 import CouponDistribution from './component/CouponDistribution.js';
 import MemberList from './component/MemberList.js';
+import UpdateCoupon from './component/UpdateCoupon.js';
+import MemberDetail from './component/MemberDetail.js';
+import UpdateProduct from './component/UpdateProduct.js';
 const App = () => {
   return (
     <BrowserRouter> 
@@ -18,12 +21,16 @@ const App = () => {
         <Route path="/master/productList" element={<ProductList />} />
         <Route path="/master/productDetail/:productSeqno" element={<ProductDetail />} />
         <Route path="/master/postProduct" element={<PostProduct />} />
+        <Route path="/master/updateProduct/:productSeqno" element={<UpdateProduct />} />
         <Route path="/master/categoryList" element={<CategoryList />} />
         <Route path="/master/couponList" element={<CouponList />} />
         <Route path="/master/couponDetail/:couponSeqno" element={<CouponDetail />} />
         <Route path="/master/createCoupon" element={<CreateCoupon />} />
         <Route path="/master/couponDistribution" element={<CouponDistribution />} />
+        <Route path="/master/updateCoupon/:couponSeqno" element={<UpdateCoupon />} />
         <Route path="/master/memberList" element={<MemberList />} />
+        <Route path="/master/memberDetail/:email" element={<MemberDetail />} />
+        
       </Routes>
     </BrowserRouter>
   );

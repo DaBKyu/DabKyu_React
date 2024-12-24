@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams , useNavigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import AdminSidebar from "./AdminSidebar"; // AdminSidebar 컴포넌트 import
 import "../css/AdminSidebar.css"; // CSS 파일 import
@@ -9,6 +9,7 @@ function CouponDetail() {
     const [couponDetail, setCouponDetail] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const navigate = useNavigate(); 
 
     useEffect(() => {
         if (couponSeqno) {
@@ -57,19 +58,23 @@ function CouponDetail() {
             <h1 className="mb-4 text-center">쿠폰 상세 정보</h1>
 
             <div className="card mb-4">
-                <div className="card-header bg-primary text-white">쿠폰 정보</div>
+                <div className="card-header bg-primary text-white">쿠폰 정보  <button 
+                        onClick={() => navigate(`/master/updateCoupon/${coupon.couponSeqno}`)} 
+                        className="btn btn-warning mt-3 float-end">
+                        쿠폰 수정</button></div>
                 <div className="card-body">
-                    <p><strong>쿠폰 번호:</strong> {coupon.couponSeqno}</p>
+                    <p><strong>쿠폰 코드:</strong> {coupon.couponCode}</p>
                     <p><strong>쿠폰 이름:</strong> {coupon.couponName}</p>
                     <p><strong>쿠폰 타입:</strong> {coupon.couponType}</p>
                     <p><strong>쿠폰 정보:</strong> {coupon.couponInfo}</p>
-                    <p><strong>할인 금액:</strong> {coupon.amountDiscount}원</p>
+                    <p><strong>금액 할인:</strong> {coupon.amountDiscount}원</p>
+                    <p><strong>퍼센트 할인:</strong> {coupon.percentDiscount}원</p>
                     <p><strong>최소 주문 금액:</strong> {coupon.minOrder}원</p>
                     <p><strong>적용 등급:</strong> {coupon.couponRole}</p>
                     <p><strong>중복 사용 가능 여부:</strong> {coupon.isDupl}</p>
-                    <p><strong>쿠폰 코드:</strong> {coupon.couponCode}</p>
                     <p><strong>시작 날짜:</strong> {new Date(coupon.couponStartDate).toLocaleDateString()}</p>
                     <p><strong>종료 날짜:</strong> {new Date(coupon.couponEndDate).toLocaleDateString()}</p>
+                    
                 </div>
             </div>
 

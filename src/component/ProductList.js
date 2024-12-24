@@ -127,6 +127,11 @@ function ProductList() {
               </Form.Select>
             </Col>
           </Row>
+          {/* 상품 등록 버튼 */}
+          <Button variant="success" onClick={() => navigate(`/master/postProduct`)} className="mb-3">
+            상품 등록
+          </Button>
+
 
           {filteredProducts.length === 0 ? (
             <Alert variant="warning">검색된 제품이 없습니다.</Alert>

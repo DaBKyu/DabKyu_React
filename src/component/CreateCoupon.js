@@ -1,5 +1,6 @@
 import React, { useState} from "react";
 import "../css/AdminSidebar.css"; // CSS 파일 import
+import { useNavigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import AdminSidebar from "./AdminSidebar";
 import getCookie from '../GetCookie';
@@ -20,6 +21,7 @@ const CreateCoupon = () => {
   
     const [category3Seqnos, setCategory3Seqnos] = useState([]);
     const [productSeqnos, setProductSeqnos] = useState([]);
+    const navigate = useNavigate();
   
     const handleInputChange = (e) => {
       const { name, value } = e.target;
@@ -74,6 +76,10 @@ const CreateCoupon = () => {
         alert("쿠폰 생성 중 오류가 발생했습니다.");
       }
     };
+
+    const goBack = () => {
+      navigate(-1);
+    }
   
     return (
       <div className="container mt-5">
@@ -221,6 +227,7 @@ const CreateCoupon = () => {
           </div>
   
           <button type="submit" className="btn btn-primary">쿠폰 생성</button>
+          <button className="btn btn-secondary" onClick={goBack}>취소</button>
         </form>
       </div>
     );

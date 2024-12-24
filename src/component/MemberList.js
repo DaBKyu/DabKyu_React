@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Table, Pagination, Container, Row, Col, Form } from 'react-bootstrap';
 import AdminSidebar from "./AdminSidebar"; // AdminSidebar 컴포넌트 import
 import "../css/AdminSidebar.css"; // CSS 파일 import
+import { useNavigate } from 'react-router-dom';
 
 const MemberList = () => {
     const [members, setMembers] = useState([]);
@@ -11,6 +12,7 @@ const MemberList = () => {
     const [totalPages, setTotalPages] = useState(1);
     const [emailSearch, setEmailSearch] = useState('');
     const [selectedGrade, setSelectedGrade] = useState('');
+    const navigate = useNavigate();
 
     useEffect(() => {
         // 서버에서 회원 목록을 가져오는 API 호출
@@ -110,7 +112,7 @@ const MemberList = () => {
                 <tbody>
                     {membersToShow.map((member, index) => (
                         <tr key={index}>
-                            <td>{member.email}</td>
+                            <td onClick={() => navigate(`/master/memberDetail/${member.email}`)} style={{ cursor: 'pointer' }}>{member.email}</td>
                             <td>{member.username}</td>
                             <td>{member.telno}</td>
                             <td>{member.gender}</td>
