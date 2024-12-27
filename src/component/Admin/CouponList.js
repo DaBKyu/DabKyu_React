@@ -2,18 +2,18 @@ import React, { useEffect, useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useNavigate } from 'react-router-dom';
 import AdminSidebar from "./AdminSidebar"; // AdminSidebar 컴포넌트 import
-import "../css/AdminSidebar.css"; // CSS 파일 import
+import "../../css/AdminSidebar.css"; // CSS 파일 import
 
 function CouponList() {
   const [coupons, setCoupons] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [searchTerm, setSearchTerm] = useState('');
-  const [couponType, setCouponType] = useState(''); // 쿠폰 타입을 선택할 변수 추가
+  const [couponType, setCouponType] = useState('');
+  const [selectedCoupons, setSelectedCoupons] = useState([]); // 선택된 쿠폰을 저장할 상태
   const navigate = useNavigate();
   const itemsPerPage = 10;
 
   useEffect(() => {
-    // 쿠폰 목록을 가져오는 API 호출
     fetch('http://localhost:8082/master/couponList')
       .then(response => response.json())
       .then(data => {
@@ -24,48 +24,99 @@ function CouponList() {
       });
   }, []);
 
-  // 검색어와 쿠폰 타입에 따라 필터링된 쿠폰 데이터
   const filteredCoupons = coupons.filter(coupon => {
     const matchesName = coupon.couponName.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesType = couponType ? coupon.couponType === couponType : true; // 쿠폰 타입에 따라 필터링
+    const matchesType = couponType ? coupon.couponType === couponType : true;
     return matchesName && matchesType;
   });
 
-  // 현재 페이지에 표시될 쿠폰 데이터 계산
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
   const currentItems = filteredCoupons.slice(indexOfFirstItem, indexOfLastItem);
 
-  // 페이지 변경 핸들러
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
-  // 페이지 번호 계산
   const totalPages = Math.ceil(filteredCoupons.length / itemsPerPage);
   const pageNumbers = Array.from({ length: totalPages }, (_, i) => i + 1);
+
+  const handleCheckboxChange = (couponSeqno) => {
+    setSelectedCoupons(prevSelectedCoupons =>
+      prevSelectedCoupons.includes(couponSeqno)
+        ? prevSelectedCoupons.filter(seqno => seqno !== couponSeqno)
+        : [...prevSelectedCoupons, couponSeqno]
+    );
+  };
+
+  const handleDeactivateCoupons = () => {
+    if (selectedCoupons.length === 0) {
+      alert('만료 처리할 쿠폰을 선택하세요.');
+      return;
+    }
+
+    // 확인 창 추가
+    const confirmed = window.confirm('선택한 쿠폰을 만료처리 하시겠습니까?');
+  if (confirmed) {
+    fetch('http://localhost:8082/master/deactivateCoupons', {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(selectedCoupons),
+    })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('네트워크 응답이 실패했습니다.');
+        }
+        return response.json();
+      })
+      .then(data => {
+        console.log(data);  // 응답 데이터 로그 추가
+        // 성공 메시지 표시
+        alert('선택한 쿠폰이 만료 처리되었습니다.');
+        setSelectedCoupons([]); // 선택된 쿠폰 초기화
+        // 쿠폰 목록을 다시 불러오기 (새로고침)
+        fetch('http://localhost:8082/master/couponList')
+          .then(response => response.json())
+          .then(data => setCoupons(data.coupons));
+      })
+      .catch(error => {
+        console.error('쿠폰 만료 처리 실패:', error);
+        alert('쿠폰 만료 처리에 실패했습니다. 다시 시도해 주세요.');
+      });
+  }
+};
 
   return (
     <div className="container mt-5">
         <AdminSidebar />
       <h1 className="text-center mb-4">쿠폰 목록</h1>
 
-     {/* 쿠폰 생성 버튼 */}
-      <div className="mb-4 d-flex justify-content-end">
-        <button
-          className="btn btn-primary"
-          onClick={() => navigate('/master/createCoupon')} // 쿠폰 생성 페이지로 이동
-        >
-          쿠폰 생성
-        </button>
-        {/* 쿠폰 배포 버튼 */}
-        <button
-          className="btn btn-success"
-          onClick={() => navigate('/master/couponDistribution')} // 쿠폰 배포 페이지로 이동
-        >
-          쿠폰 배포
-        </button>
+      {/* 쿠폰 생성, 배포 버튼과 만료 처리 버튼을 같은 라인에 배치 */}
+      <div className="mb-4 d-flex justify-content-between">
+      <div>
+          <button
+            className="btn btn-danger"
+            onClick={handleDeactivateCoupons}
+          >
+            쿠폰 만료 처리
+          </button>
+        </div>
+        <div className="d-flex gap-2">
+          <button
+            className="btn btn-primary"
+            onClick={() => navigate('/master/createCoupon')}
+          >
+            쿠폰 생성
+          </button>
+          <button
+            className="btn btn-success"
+            onClick={() => navigate('/master/couponDistribution')}
+          >
+            쿠폰 배포
+          </button>
+        </div>
+        
       </div>
-
-
       {/* 검색 및 드롭다운 필터 */}
       <div className="mb-4 d-flex">
         <input
@@ -75,23 +126,16 @@ function CouponList() {
           value={searchTerm}
           onChange={(e) => {
             setSearchTerm(e.target.value);
-            setCurrentPage(1); // 검색 시 첫 페이지로 이동
+            setCurrentPage(1);
           }}
         />
-        
-       
+
         <select
           className="form-control"
-          style={{
-            fontSize: '0.85rem',   // 폰트 크기 조정
-            padding: '0.25rem 0.5rem',  // 패딩 조정
-             // 높이 조정
-            width: '140px'         // 가로 크기 조정
-          }}
           value={couponType}
           onChange={(e) => {
             setCouponType(e.target.value);
-            setCurrentPage(1); // 드롭다운 변경 시 첫 페이지로 이동
+            setCurrentPage(1);
           }}
         >
           <option value="">쿠폰 타입 선택</option>
@@ -109,6 +153,19 @@ function CouponList() {
           <table className="table table-striped table-bordered">
             <thead className="thead-dark">
               <tr>
+                <th>
+                  <input
+                    type="checkbox"
+                    onChange={(e) => {
+                      if (e.target.checked) {
+                        setSelectedCoupons(filteredCoupons.map(coupon => coupon.couponSeqno));
+                      } else {
+                        setSelectedCoupons([]);
+                      }
+                    }}
+                    checked={selectedCoupons.length === filteredCoupons.length}
+                  />
+                </th>
                 <th>쿠폰 코드</th>
                 <th>쿠폰명</th>
                 <th style={{ width: '10%' }}>쿠폰 타입</th>
@@ -124,6 +181,13 @@ function CouponList() {
             <tbody>
               {currentItems.map((coupon) => (
                 <tr key={coupon.couponSeqno}>
+                  <td>
+                    <input
+                      type="checkbox"
+                      checked={selectedCoupons.includes(coupon.couponSeqno)}
+                      onChange={() => handleCheckboxChange(coupon.couponSeqno)}
+                    />
+                  </td>
                   <td>{coupon.couponCode}</td>
                   <td onClick={() => navigate(`/master/couponDetail/${coupon.couponSeqno}`)} style={{ cursor: 'pointer' }}>{coupon.couponName}</td>
                   <td>{coupon.couponType}</td>
@@ -133,7 +197,7 @@ function CouponList() {
                   <td>{coupon.amountDiscount}원</td>
                   <td>{coupon.percentDiscount}%</td>
                   <td>{coupon.isDupl === 'Y' ? '가능' : '불가능'}</td>
-                  <td style={{ width: '10%' }}>
+                  <td>
                     {new Date(coupon.couponStartDate).toLocaleDateString()} ~{' '}
                     {new Date(coupon.couponEndDate).toLocaleDateString()}
                   </td>
@@ -141,17 +205,12 @@ function CouponList() {
               ))}
             </tbody>
           </table>
+
           <nav>
             <ul className="pagination justify-content-center">
               {pageNumbers.map((number) => (
-                <li
-                  key={number}
-                  className={`page-item ${number === currentPage ? 'active' : ''}`}
-                >
-                  <button
-                    className="page-link"
-                    onClick={() => paginate(number)}
-                  >
+                <li key={number} className={`page-item ${number === currentPage ? 'active' : ''}`}>
+                  <button className="page-link" onClick={() => paginate(number)}>
                     {number}
                   </button>
                 </li>

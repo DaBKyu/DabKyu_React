@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+import AdminSidebar from "./AdminSidebar"; // AdminSidebar 컴포넌트 import
+import "../../css/AdminSidebar.css"; // CSS 파일 import
 import 'bootstrap/dist/css/bootstrap.min.css';  // 부트스트랩 CSS 추가
 
 const MemberDetail = () => {
@@ -98,6 +100,7 @@ const MemberDetail = () => {
 
     return (
         <div className="container mt-4">
+            <AdminSidebar />
             <h1 className="mb-4">회원 상세 정보</h1>
             <div className="table-responsive">
                 <table className="table table-bordered">

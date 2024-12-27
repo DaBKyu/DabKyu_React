@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import AdminSidebar from "./AdminSidebar"; // AdminSidebar 컴포넌트 import
 import { Spinner, Alert, Card, Col, Row, Button, Pagination, Form } from 'react-bootstrap'; // Pagination과 Form 추가
 import { useNavigate } from 'react-router-dom';
-import "../css/AdminSidebar.css"; // CSS 파일 import
+import "../../css/AdminSidebar.css"; // CSS 파일 import
 
 function ProductList() {
   const [products, setProducts] = useState([]);

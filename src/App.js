@@ -1,18 +1,20 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import './App.css';
-import AdminMain from './component/AdminMain.js';
-import ProductList from './component/ProductList.js';
-import ProductDetail from './component/ProductDetail.js';
-import PostProduct from './component/PostProduct.js';
-import CategoryList from './component/CategoryList.js';
-import CouponList from './component/CouponList.js';
-import CouponDetail from './component/CouponDetail.js';
-import CreateCoupon from './component/CreateCoupon.js';
-import CouponDistribution from './component/CouponDistribution.js';
-import MemberList from './component/MemberList.js';
-import UpdateCoupon from './component/UpdateCoupon.js';
-import MemberDetail from './component/MemberDetail.js';
-import UpdateProduct from './component/UpdateProduct.js';
+import AdminMain from './component/Admin/AdminMain.js';
+import ProductList from './component/Admin/ProductList.js';
+import ProductDetail from './component/Admin/ProductDetail.js';
+import PostProduct from './component/Admin/PostProduct.js';
+import CategoryList from './component/Admin/CategoryList.js';
+import CouponList from './component/Admin/CouponList.js';
+import CouponDetail from './component/Admin/CouponDetail.js';
+import CreateCoupon from './component/Admin/CreateCoupon.js';
+import CouponDistribution from './component/Admin/CouponDistribution.js';
+import MemberList from './component/Admin/MemberList.js';
+import UpdateCoupon from './component/Admin/UpdateCoupon.js';
+import MemberDetail from './component/Admin/MemberDetail.js';
+import UpdateProduct from './component/Admin/UpdateProduct.js';
+import OrderList from './component/Admin/OrderList.js';
+import OrderDetail from './component/Admin/OrderDetail.js';
 const App = () => {
   return (
     <BrowserRouter> 
@@ -30,7 +32,8 @@ const App = () => {
         <Route path="/master/updateCoupon/:couponSeqno" element={<UpdateCoupon />} />
         <Route path="/master/memberList" element={<MemberList />} />
         <Route path="/master/memberDetail/:email" element={<MemberDetail />} />
-        
+        <Route path="/master/orderList" element={<OrderList />} />
+        <Route path="/master/orderDetail/:orderSeqno" element={<OrderDetail />} />
       </Routes>
     </BrowserRouter>
   );

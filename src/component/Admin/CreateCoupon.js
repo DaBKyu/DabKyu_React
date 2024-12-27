@@ -1,9 +1,9 @@
 import React, { useState} from "react";
-import "../css/AdminSidebar.css"; // CSS 파일 import
+import "../../css/AdminSidebar.css"; // CSS 파일 import
 import { useNavigate } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import AdminSidebar from "./AdminSidebar";
-import getCookie from '../GetCookie';
+import getCookie from '../../GetCookie';
 
 const CreateCoupon = () => {
     const [couponData, setCouponData] = useState({

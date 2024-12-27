@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Table, Pagination, Container, Row, Col, Form } from 'react-bootstrap';
 import AdminSidebar from "./AdminSidebar"; // AdminSidebar 컴포넌트 import
-import "../css/AdminSidebar.css"; // CSS 파일 import
+import "../../css/AdminSidebar.css"; // CSS 파일 import
 import { useNavigate } from 'react-router-dom';
 
 const MemberList = () => {

@@ -1,5 +1,5 @@
 import "bootstrap/dist/css/bootstrap.min.css";
-import "../css/AdminSidebar.css"; // CSS 파일 import
+import "../../css/AdminSidebar.css"; // CSS 파일 import
 import React, { useState, useEffect } from 'react';
 import AdminSidebar from "./AdminSidebar"; // AdminSidebar 컴포넌트 import
 import { Spinner, Alert, Card, Col, Row, Button } from 'react-bootstrap'; // Pagination과 Form 추가

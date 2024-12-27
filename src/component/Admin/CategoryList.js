@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
-import getCookie from '../GetCookie';  
-import "../css/AdminSidebar.css"; 
+import getCookie from '../../GetCookie';  
+import "../../css/AdminSidebar.css"; 
 import AdminSidebar from './AdminSidebar';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowUp, faArrowDown } from '@fortawesome/free-solid-svg-icons';

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css"; // 부트스트랩 스타일 가져오기
 import AdminSidebar from "./AdminSidebar"; // AdminSidebar 컴포넌트 import
-import "../css/AdminSidebar.css"; // CSS 파일 import
+import "../../css/AdminSidebar.css"; // CSS 파일 import
 
 const CouponDistributionPage = () => {
   const [formData, setFormData] = useState({

@@ -1,7 +1,7 @@
 import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import "../css/shopHeader.css"; 
-import "../css/AdminSidebar.css"; 
+import "../../css/shopHeader.css"; 
+import "../../css/AdminSidebar.css"; 
 import {Link} from 'react-router-dom';
 import { FaUser, FaHome, FaBox, FaClipboardList, FaUsers, FaEnvelope, FaChartLine } from 'react-icons/fa'; // 아이콘 사용
 
@@ -41,7 +41,7 @@ const Sidebar = () => {
         메일 관리
       </Link>
       <br /> 
-      <Link to="#" className="d-flex align-items-center indent">
+      <Link to="/master/orderList" className="d-flex align-items-center indent">
         <FaClipboardList className="mr-2" />
         주문 관리
       </Link>

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams , useNavigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import AdminSidebar from "./AdminSidebar"; // AdminSidebar 컴포넌트 import
-import "../css/AdminSidebar.css"; // CSS 파일 import
+import "../../css/AdminSidebar.css"; // CSS 파일 import
 
 function CouponDetail() {
     const { couponSeqno } = useParams(); // URL 파라미터에서 productSeqno를 추출
@@ -52,16 +52,51 @@ function CouponDetail() {
 
     const { coupon, categories, targets } = couponDetail;
 
+    // 쿠폰 만료 처리 함수
+    const handleDeactivateCoupon = () => {
+        const confirmation = window.confirm("정말 쿠폰을 만료 처리하시겠습니까?");
+        if (confirmation) {
+            // 만료 처리 API 호출
+            fetch(`http://localhost:8082/master/deactivateCoupon/${couponSeqno}`, {
+                method: 'PUT',
+            })
+            .then((response) => {
+                if (response.ok) {
+                    alert('선택한 쿠폰이 성공적으로 만료 처리되었습니다.');
+                    // 만료 처리 후 다른 페이지로 이동
+                    navigate('/master/couponList');
+                } else {
+                    throw new Error('쿠폰 만료 처리에 실패했습니다.');
+                }
+            })
+            .catch((err) => {
+                alert(err.message);
+            });
+        }
+    };
+
     return (
         <div className="container my-5">
             <AdminSidebar />
             <h1 className="mb-4 text-center">쿠폰 상세 정보</h1>
 
             <div className="card mb-4">
-                <div className="card-header bg-primary text-white">쿠폰 정보  <button 
+            <div className="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+                <span>쿠폰 정보</span>
+                <div>
+                <button 
                         onClick={() => navigate(`/master/updateCoupon/${coupon.couponSeqno}`)} 
-                        className="btn btn-warning mt-3 float-end">
-                        쿠폰 수정</button></div>
+                        className="btn btn-warning mt-3 ms-2">
+                        쿠폰 수정
+                    </button>
+                    <button 
+                        onClick={handleDeactivateCoupon} 
+                        className="btn btn-danger mt-3 ms-2">
+                        쿠폰 만료 처리
+                    </button>
+                   
+                </div>
+            </div>
                 <div className="card-body">
                     <p><strong>쿠폰 코드:</strong> {coupon.couponCode}</p>
                     <p><strong>쿠폰 이름:</strong> {coupon.couponName}</p>
@@ -114,6 +149,7 @@ function CouponDetail() {
 
                 </div>
             </div>
+           
         </div>
     );
 }

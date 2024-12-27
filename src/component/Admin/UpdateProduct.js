@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import AdminSidebar from "./AdminSidebar";
-import getCookie from "../GetCookie";
+import getCookie from "../../GetCookie";
 import "bootstrap/dist/css/bootstrap.min.css";
-import "../css/AdminSidebar.css";
+import "../../css/AdminSidebar.css";
 
 const UpdateProduct = () => {
   const { productSeqno } = useParams(); // URL에서 productSeqno 가져오기

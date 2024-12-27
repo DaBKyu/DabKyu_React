@@ -1,8 +1,8 @@
 import React, { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import "../css/AdminSidebar.css"; // CSS 파일 import
+import "../../css/AdminSidebar.css"; // CSS 파일 import
 import AdminSidebar from "./AdminSidebar";
-import getCookie from '../GetCookie';  
+import getCookie from '../../GetCookie';  
 import 'bootstrap/dist/css/bootstrap.min.css'; // Bootstrap CSS import
 
 const PostProduct = () => {
