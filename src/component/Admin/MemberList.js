@@ -111,8 +111,9 @@ const MemberList = () => {
                 </thead>
                 <tbody>
                     {membersToShow.map((member, index) => (
-                        <tr key={index}>
-                            <td onClick={() => navigate(`/master/memberDetail/${member.email}`)} style={{ cursor: 'pointer' }}>{member.email}</td>
+                        <tr key={index} onClick={() => navigate(`/master/memberDetail/${member.email}`)} style={{ cursor: 'pointer' }}
+                        className="table-row-hover">
+                            <td >{member.email}</td>
                             <td>{member.username}</td>
                             <td>{member.telno}</td>
                             <td>{member.gender}</td>

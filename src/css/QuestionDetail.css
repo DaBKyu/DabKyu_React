@@ -1,0 +1,33 @@
+.bubble {
+    position: relative;
+    background-color: #f1f1f1;
+    border-radius: 15px;
+    padding: 12px 20px;
+    margin: 15px 0;
+    word-wrap: break-word;
+    font-size: 1rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    max-width: 75%; /* 동일한 max-width로 설정 */
+  }
+  
+  .question-bubble {
+    background-color: #e3f2fd;
+    align-self: flex-start; /* 왼쪽 배치 */
+    border: 1px solid #90caf9;
+    margin-right: auto;
+    margin-left: 0;
+  }
+  
+  .answer-bubble {
+    background-color: #c8e6c9;
+    align-self: flex-end; /* 오른쪽 배치 */
+    border: 1px solid #81c784;
+    margin-left: auto; /* 왼쪽 여백을 자동으로 설정하여 오른쪽 끝으로 이동 */
+    margin-right: 0;
+  }
+  
+  /* 꼬리 없애기 위해 ::after 부분을 삭제 */
+  .bubble::after {
+    display: none;
+  }
+  

@@ -1,5 +1,8 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import './App.css';
+import "bootstrap/dist/css/bootstrap.min.css";
+import "./css/shopHeader.css"; 
+import "./css/AdminSidebar.css"; 
 import AdminMain from './component/Admin/AdminMain.js';
 import ProductList from './component/Admin/ProductList.js';
 import ProductDetail from './component/Admin/ProductDetail.js';
@@ -15,6 +18,8 @@ import MemberDetail from './component/Admin/MemberDetail.js';
 import UpdateProduct from './component/Admin/UpdateProduct.js';
 import OrderList from './component/Admin/OrderList.js';
 import OrderDetail from './component/Admin/OrderDetail.js';
+import QuestionList from './component/Admin/QuestionList.js';
+import QuestionDetail from './component/Admin/QuestionDetail.js';
 const App = () => {
   return (
     <BrowserRouter> 
@@ -34,6 +39,8 @@ const App = () => {
         <Route path="/master/memberDetail/:email" element={<MemberDetail />} />
         <Route path="/master/orderList" element={<OrderList />} />
         <Route path="/master/orderDetail/:orderSeqno" element={<OrderDetail />} />
+        <Route path="/master/questionList" element={<QuestionList />} />
+        <Route path="/master/questionDetail/:queSeqno" element={<QuestionDetail />} />
       </Routes>
     </BrowserRouter>
   );

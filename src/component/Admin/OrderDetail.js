@@ -11,7 +11,9 @@ const OrderDetail = () => {
   const [orderProducts, setOrderProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [isUpdating, setIsUpdating] = useState(false);  
   const [newOrderStatus, setNewOrderStatus] = useState(null);
+  const [orderStatusUpdated, setOrderStatusUpdated] = useState(false); 
 
   useEffect(() => {
     const fetchOrderDetails = async () => {
@@ -37,6 +39,34 @@ const OrderDetail = () => {
     fetchOrderDetails();
   }, [orderSeqno]);
 
+    // 주문 상태 변경 함수
+    const updateOrderStatus = async () => {
+      setIsUpdating(true);  // 수정 요청 시작
+      try {
+          const response = await fetch(`http://localhost:8082/master/changeOrderStatus/${orderSeqno}`, {
+              method: 'PUT',
+              headers: {
+                  'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({ orderStatus : newOrderStatus }),  // 수정할 등급
+          });
+  
+          if (response.ok) {
+              const data = await response.text();  // 응답을 JSON이 아닌 텍스트로 받기
+              alert(data);  // 응답 메시지를 그대로 알림으로 표시
+              setOrderStatusUpdated(true);
+          } else {
+              const errorData = await response.text();  // 오류 메시지를 텍스트로 처리
+              alert(errorData);
+          }
+      } catch (error) {
+          console.error("주문 상태 변경에 실패했습니다:", error);
+          alert("주문 상태 변경 중 오류가 발생했습니다.");
+      } finally {
+          setIsUpdating(false);  // 변경 요청 종료
+      }
+  };
+
   if (loading) return <div className="text-center mt-5">Loading...</div>;
   if (error) return <div className="text-center mt-5">Error: {error.message}</div>;
 
@@ -51,39 +81,44 @@ const OrderDetail = () => {
             <div className="card-body">
               <h5 className="card-title">주문 정보</h5>
               <div className="d-flex justify-content-end">
-                <button className="btn btn-warning me-2">취소처리</button>
-                <button className="btn btn-warning">환불처리</button>
+                <button className="btn btn-warning me-2">주문 취소 처리</button>
+                <button className="btn btn-warning">주문 환불 처리</button>
               </div>
               <p className="card-text mt-3">
               <table className="table table-striped">
                 <thead>
                   <tr>
                     <th>주문번호</th>
-                    <th>주문일</th>
                     <th>주문상태</th>
-                    <th>수령인</th>
-                    <th>수령주소</th>
                     <th>총금액</th>
                     <th>배송비</th>
+                    <th>수령인</th>
+                    <th>수령주소</th>
+                    <th>주문일</th>
+                    <th>도착일</th>
                   </tr>
                 </thead>
                 <tbody>
                 <tr>
-                      <td>{orderInfo.orderSeqno}</td>
-                      <td>{new Date(orderInfo.orderDate).toLocaleString()}</td>
-                      <td>  <select 
+                <td>{orderInfo.orderSeqno}</td>
+                <td><select 
                   className="form-select d-inline-block w-auto ms-2" 
                   value={newOrderStatus} 
-                  onChange={(e) => setNewOrderStatus(e.target.value)}
-                >
+                  onChange={(e) => setNewOrderStatus(e.target.value)}>
                   <option value="배송중">배송중</option>
                   <option value="배송완료">배송완료</option>
                   <option value="배송준비중">배송준비중</option>
+                  <option value="취소신청">취소신청</option>
+                  <option value="환불신청">환불신청</option>
+                  <option value="취소완료">취소완료</option>
+                  <option value="환불완료">환불완료</option>
                 </select></td>
-                      <td>{orderInfo.resName}</td>
-                      <td>{orderInfo.resAddress}</td>
                       <td>{orderInfo.totalPrice}</td>
                       <td>{orderInfo.deliveryPrice}</td>
+                      <td>{orderInfo.resName}</td>
+                      <td>{orderInfo.resAddress}</td>
+                      <td>{new Date(orderInfo.orderDate).toLocaleString()}</td>
+                      <td>{new Date(orderInfo.exptDate).toLocaleString()}</td>
                     </tr>
           
                 </tbody>
@@ -147,7 +182,18 @@ const OrderDetail = () => {
             </div>
           </div>
         )}
+        <div >
+                <button 
+                    className="btn btn-primary" 
+                    onClick={updateOrderStatus} 
+                    disabled={isUpdating}
+                >
+                    {isUpdating ? "변경 중..." : "주문 상태 변경"}
+                </button>
+                {orderStatusUpdated && <p className="text-success">주문 상태 변경이 완료되었습니다.</p>}
+            </div>
       </div>
+      
     </div>
   );
 };

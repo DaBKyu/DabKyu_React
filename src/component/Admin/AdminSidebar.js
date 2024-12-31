@@ -36,7 +36,7 @@ const Sidebar = () => {
         <FaUsers className="mr-2" />
         회원 관리
         </Link>
-      <Link to="#" className="d-flex align-items-center indent">
+      <Link to="/master/mailList" className="d-flex align-items-center indent">
         <FaEnvelope className="mr-2" />
         메일 관리
       </Link>
@@ -45,15 +45,15 @@ const Sidebar = () => {
         <FaClipboardList className="mr-2" />
         주문 관리
       </Link>
-      <Link to="#" className="d-flex align-items-center indent">
+      <Link to="/master/questionList" className="d-flex align-items-center indent">
         <FaClipboardList className="mr-2" />
         문의 관리
       </Link>
-      <Link to="#" className="d-flex align-items-center indent">
+      <Link to="/master/reviewList" className="d-flex align-items-center indent">
         <FaClipboardList className="mr-2" />
         리뷰 관리
       </Link>
-      <Link to="#" className="d-flex align-items-center indent space">
+      <Link to="/master/reviewReportList" className="d-flex align-items-center indent space">
         <FaClipboardList className="mr-2" />
         리뷰 신고 관리
       </Link>

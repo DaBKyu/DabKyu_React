@@ -89,7 +89,7 @@ function CouponList() {
   return (
     <div className="container mt-5">
         <AdminSidebar />
-      <h1 className="text-center mb-4">쿠폰 목록</h1>
+      <h1 className="text-center mb-4">쿠폰 관리</h1>
 
       {/* 쿠폰 생성, 배포 버튼과 만료 처리 버튼을 같은 라인에 배치 */}
       <div className="mb-4 d-flex justify-content-between">
@@ -180,7 +180,11 @@ function CouponList() {
             </thead>
             <tbody>
               {currentItems.map((coupon) => (
-                <tr key={coupon.couponSeqno}>
+                <tr key={coupon.couponSeqno}
+                onClick={() => navigate(`/master/couponDetail/${coupon.couponSeqno}`)} 
+                style={{ cursor: 'pointer' }}
+                className="table-row-hover"
+                >
                   <td>
                     <input
                       type="checkbox"
@@ -189,7 +193,7 @@ function CouponList() {
                     />
                   </td>
                   <td>{coupon.couponCode}</td>
-                  <td onClick={() => navigate(`/master/couponDetail/${coupon.couponSeqno}`)} style={{ cursor: 'pointer' }}>{coupon.couponName}</td>
+                  <td >{coupon.couponName}</td>
                   <td>{coupon.couponType}</td>
                   <td>{coupon.couponRole}</td>
                   <td>{coupon.couponInfo}</td>

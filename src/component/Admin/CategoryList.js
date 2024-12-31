@@ -306,19 +306,24 @@ const CategoryList = () => {
                 <div className="d-flex justify-content-start mb-4">
                   {/* 메인 카테고리 */}
                   <div className="category-box me-4">
-                    <label className="form-label">메인 카테고리:</label>
-                    <ul className="list-group">
-                      {allCategory1.map((category) => (
-                        <li
-                          key={category.category1Seqno}
-                          onClick={() => setSelectedMainCategory(category.category1Seqno)}
-                          className={`list-group-item ${selectedMainCategory === category.category1Seqno ? 'bg-secondary text-white' : ''}`}
+                  <label className="form-label">메인 카테고리:</label>
+                  <ul className="list-group">
+                    {allCategory1.map((category) => (
+                      <li
+                        key={category.category1Seqno}
+                        onClick={() => setSelectedMainCategory(category.category1Seqno)}
+                        className={`list-group-item ${selectedMainCategory === category.category1Seqno ? 'bg-secondary text-white' : ''}`}
+                      >
+                        {category.category1Name}
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();  // 클릭 이벤트 전파 방지
+                            deleteCategory(category.category1Seqno, "category1", e); // categoryId와 categoryType을 명시적으로 전달
+                          }}
+                          className="btn btn-danger btn-sm float-end ms-2"
                         >
-                          {category.category1Name}
-                          <button
-                            onClick={(e) => deleteCategory(category.category1Seqno, "category1", e)} // 이벤트 전파 방지 추가
-                            className="btn btn-danger btn-sm float-end ms-2"
-                          >삭제</button>
+                          삭제
+                        </button>
                           <button
                             onClick={() => handleEditCategory(category.category1Seqno, "category1", category.category1Name)}
                             className="btn btn-warning btn-sm float-end ms-2"
@@ -381,7 +386,9 @@ const CategoryList = () => {
                           >
                             {category.category2Name}
                             <button
-                              onClick={(e) => deleteCategory(category.category2Seqno, "category2", e)}
+                              onClick={(e) => {
+                                e.stopPropagation();  // 클릭 이벤트 전파 방지
+                               deleteCategory(category.category2Seqno, "category2", e)}}
                               className="btn btn-danger btn-sm float-end ms-2"
                             >삭제</button>
                             <button
@@ -447,7 +454,9 @@ const CategoryList = () => {
                           >
                             {category.category3Name}
                             <button
-                              onClick={(e) => deleteCategory(category.category3Seqno, "category3",e)}
+                              onClick={(e) => {
+                                e.stopPropagation();  // 클릭 이벤트 전파 방지
+                                 deleteCategory(category.category3Seqno, "category3",e)}}
                               className="btn btn-danger btn-sm float-end ms-2"
                             >
                               삭제

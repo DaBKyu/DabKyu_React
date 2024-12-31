@@ -10,6 +10,7 @@ const OrderList = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [ordersPerPage] = useState(10);
   const [searchEmail, setSearchEmail] = useState('');
+  const [searchStatus, setSearchStatus] = useState(''); // 주문 상태 필터링을 위한 상태
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
@@ -35,18 +36,21 @@ const OrderList = () => {
     fetchOrders();
   }, []);
 
-  // 이메일 검색 핸들러
-  const handleSearch = (e) => {
-    const email = e.target.value;
-    setSearchEmail(email);
-    if (email) {
-      const filtered = orders.filter(order => order.email.email.includes(email));
-      setFilteredOrders(filtered);
-      setCurrentPage(1);
-    } else {
-      setFilteredOrders(orders);
+  // 이메일 및 상태 검색 핸들러 (실시간 검색)
+  useEffect(() => {
+    let filtered = orders;
+
+    if (searchEmail) {
+      filtered = filtered.filter(order => order.email.email.includes(searchEmail));
     }
-  };
+
+    if (searchStatus) {
+      filtered = filtered.filter(order => order.orderStatus === searchStatus);
+    }
+
+    setFilteredOrders(filtered);
+    setCurrentPage(1); // 검색 후 첫 페이지로 이동
+  }, [searchEmail, searchStatus, orders]);
 
   // 페이지 변경 핸들러
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
@@ -62,16 +66,30 @@ const OrderList = () => {
   return (
     <div className="container my-4">
       <AdminSidebar />
-      <h1 className="text-center mb-4">주문 내역</h1>
+      <h1 className="text-center mb-4">주문 관리</h1>
 
-      <div className="mb-3">
+      <div className="mb-3 d-flex">
         <input
           type="text"
           className="form-control"
           placeholder="이메일로 검색"
           value={searchEmail}
-          onChange={handleSearch}
+          onChange={(e) => setSearchEmail(e.target.value)}
         />
+        <select
+          className="form-control ms-3"
+          value={searchStatus}
+          onChange={(e) => setSearchStatus(e.target.value)}
+        >
+          <option value="">주문 상태 선택</option>
+          <option value="배송중">배송중</option>
+          <option value="배송준비중">배송준비중</option>
+          <option value="배송완료">배송완료</option>
+          <option value="취소신청">취소신청</option>
+          <option value="환불신청">환불신청</option>
+          <option value="취소완료">취소완료</option>
+          <option value="환불완료">환불완료</option>
+        </select>
       </div>
 
       <table className="table table-striped table-bordered">
@@ -89,8 +107,13 @@ const OrderList = () => {
         </thead>
         <tbody>
           {currentOrders.map((order) => (
-            <tr key={order.orderSeqno} >
-              <td onClick={() => navigate(`/master/orderDetail/${order.orderSeqno}`)} style={{ cursor: 'pointer' }}>{order.orderSeqno} </td>
+            <tr
+            key={order.orderSeqno}
+            onClick={() => navigate(`/master/orderDetail/${order.orderSeqno}`)}
+            style={{ cursor: 'pointer' }}
+            className="table-row-hover"
+          >
+              <td>{order.orderSeqno}</td>
               <td>{order.email.email}</td>
               <td>{order.email.username}</td>
               <td>{order.orderStatus}</td>
