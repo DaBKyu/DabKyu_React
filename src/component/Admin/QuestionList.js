@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 import AdminSidebar from "./AdminSidebar";
 
 const QuestionList = () => {
@@ -95,10 +95,14 @@ const QuestionList = () => {
         </thead>
         <tbody>
           {currentItems.map((question) => (
-            <tr key={question.queSeqno}>
+            <tr
+              key={question.queSeqno}
+              onClick={() => navigate(`/master/questionDetail/${question.queSeqno}`)}
+              style={{ cursor: "pointer" }}
+            >
               <td>{question.queSeqno}</td>
               <td>{question.queTitle}</td>
-              <td onClick={() => navigate(`/master/questionDetail/${question.queSeqno}`)} style={{ cursor: 'pointer' }}>{question.queContent}</td>
+              <td>{question.queContent}</td>
               <td>{question.productSeqno?.productName || "N/A"}</td>
               <td>{question.email?.email || "N/A"}</td>
               <td>{new Date(question.queDate).toLocaleString()}</td>
@@ -110,11 +114,6 @@ const QuestionList = () => {
       {/* 페이지네이션 */}
       <nav>
         <ul className="pagination justify-content-center">
-          <li className={`page-item ${currentPage === 1 ? "disabled" : ""}`}>
-            <button className="page-link" onClick={() => paginate(currentPage - 1)}>
-              이전
-            </button>
-          </li>
           {Array.from({ length: totalPages }, (_, index) => (
             <li
               key={index + 1}
@@ -125,11 +124,6 @@ const QuestionList = () => {
               </button>
             </li>
           ))}
-          <li className={`page-item ${currentPage === totalPages ? "disabled" : ""}`}>
-            <button className="page-link" onClick={() => paginate(currentPage + 1)}>
-              다음
-            </button>
-          </li>
         </ul>
       </nav>
     </div>

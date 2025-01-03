@@ -53,7 +53,7 @@ const Sidebar = () => {
         <FaClipboardList className="mr-2" />
         리뷰 관리
       </Link>
-      <Link to="/master/reviewReportList" className="d-flex align-items-center indent space">
+      <Link to="/master/reportList" className="d-flex align-items-center indent space">
         <FaClipboardList className="mr-2" />
         리뷰 신고 관리
       </Link>

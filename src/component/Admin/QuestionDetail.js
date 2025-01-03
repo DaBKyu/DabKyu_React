@@ -163,7 +163,7 @@ function QuestionDetailPage() {
     <Container className="my-5">
       <Row>
         <Col md={12}>
-          <h1 className="mb-4">문의 상세 정보</h1>
+          <h1 className="mb-4">문의 상세 페이지</h1>
         </Col>
       </Row>
       <AdminSidebar />

@@ -78,7 +78,7 @@ function CouponDetail() {
     return (
         <div className="container my-5">
             <AdminSidebar />
-            <h1 className="mb-4 text-center">쿠폰 상세 정보</h1>
+            <h1 className="mb-4 text-center">쿠폰 상세 페이지</h1>
 
             <div className="card mb-4">
             <div className="card-header bg-primary text-white d-flex justify-content-between align-items-center">

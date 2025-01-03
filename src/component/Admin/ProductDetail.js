@@ -77,7 +77,7 @@ function ProductList() {
       
 
       <Row className="mt-4">
-      <h1 className="mb-4 text-center">상품 상세 정보</h1>
+      <h1 className="mb-4 text-center">상품 상세 페이지</h1>
         {/* 상품 정보 */}
         <button 
                         onClick={() => navigate(`/master/updateProduct/${productview.productSeqno}`)} 

@@ -101,7 +101,7 @@ const MemberDetail = () => {
     return (
         <div className="container mt-4">
             <AdminSidebar />
-            <h1 className="mb-4">회원 상세 정보</h1>
+            <h1 className="mb-4">회원 상세 페이지</h1>
             <div className="table-responsive">
                 <table className="table table-bordered">
                     <tbody>

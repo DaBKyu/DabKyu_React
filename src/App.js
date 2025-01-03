@@ -20,6 +20,11 @@ import OrderList from './component/Admin/OrderList.js';
 import OrderDetail from './component/Admin/OrderDetail.js';
 import QuestionList from './component/Admin/QuestionList.js';
 import QuestionDetail from './component/Admin/QuestionDetail.js';
+import ReviewList from './component/Admin/ReviewList.js';
+import ReviewDetail from './component/Admin/ReviewDetail.js';
+import ReportList from './component/Admin/ReportList.js';
+import ReportDetail from './component/Admin/ReportDetail.js';
+import MailList from './component/Admin/MailList.js';
 const App = () => {
   return (
     <BrowserRouter> 
@@ -41,6 +46,11 @@ const App = () => {
         <Route path="/master/orderDetail/:orderSeqno" element={<OrderDetail />} />
         <Route path="/master/questionList" element={<QuestionList />} />
         <Route path="/master/questionDetail/:queSeqno" element={<QuestionDetail />} />
+        <Route path="/master/reviewList" element={<ReviewList />} />
+        <Route path="/master/reviewDetail/:reviewSeqno" element={<ReviewDetail />} />
+        <Route path="/master/reportList" element={<ReportList />} />
+        <Route path="/master/reportDetail/:reportSeqno" element={<ReportDetail />} />
+        <Route path="/master/mailList" element={<MailList />} />
       </Routes>
     </BrowserRouter>
   );
