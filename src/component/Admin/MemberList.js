@@ -12,6 +12,7 @@ const MemberList = () => {
     const [totalPages, setTotalPages] = useState(1);
     const [emailSearch, setEmailSearch] = useState('');
     const [selectedGrade, setSelectedGrade] = useState('');
+    const [sortOrder, setSortOrder] = useState('oldest'); // 정렬 상태: newest (최신순), oldest (오래된순)
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -19,16 +20,23 @@ const MemberList = () => {
         fetch('http://localhost:8082/master/memberList')
             .then(response => response.json())
             .then(data => {
-                setMembers(data.members);  // 받아온 회원 데이터 저장
-                setFilteredMembers(data.members);  // 필터링된 회원 목록 초기화
-                setTotalPages(Math.ceil(data.members.length / 10));  // 페이지 수 계산
+                const sortedMembers = data.members.sort((a, b) => {
+                    if (sortOrder === 'oldest') {
+                        return new Date(b.regdate) - new Date(a.regdate); // 오래된 순
+                    } else {
+                        return new Date(a.regdate) - new Date(b.regdate); // 최신 순
+                    }
+                });
+                setMembers(sortedMembers);  // 받아온 회원 데이터 저장
+                setFilteredMembers(sortedMembers);  // 필터링된 회원 목록 초기화
+                setTotalPages(Math.ceil(sortedMembers.length / 10));  // 페이지 수 계산
                 setLoading(false);  // 데이터 로딩 완료
             })
             .catch(error => {
                 console.error('회원 데이터를 가져오는 중 오류가 발생했습니다:', error);
                 setLoading(false);  // 오류 발생시에도 로딩 종료 처리
             });
-    }, []);  // 컴포넌트가 처음 렌더링될 때만 호출
+    }, [sortOrder]);  // 컴포넌트가 처음 렌더링될 때만 호출, sortOrder 변경 시마다 다시 호출
 
     useEffect(() => {
         // 이메일 검색 또는 회원 등급이 변경될 때마다 필터링
@@ -49,7 +57,7 @@ const MemberList = () => {
         setFilteredMembers(filtered);
         setTotalPages(Math.ceil(filtered.length / 10));  // 필터링 후 페이지 수 업데이트
         setCurrentPage(1);  // 필터링 후 첫 페이지로 이동
-    }, [emailSearch, selectedGrade, members]);  // emailSearch, selectedGrade 또는 members가 변경될 때마다 실행
+    }, [emailSearch, selectedGrade, members]);  // emailSearch, selectedGrade, members가 변경될 때마다 실행
 
     const handlePageChange = (pageNumber) => {
         setCurrentPage(pageNumber);
@@ -61,6 +69,10 @@ const MemberList = () => {
 
     const handleGradeChange = (e) => {
         setSelectedGrade(e.target.value);
+    };
+
+    const handleSortOrderChange = (e) => {
+        setSortOrder(e.target.value); // 드롭다운에서 선택된 정렬 기준 변경
     };
 
     if (loading) {
@@ -94,6 +106,12 @@ const MemberList = () => {
                         <option value="Bronze">Bronze</option>
                     </Form.Control>
                 </Col>
+                <Col md={4}>
+                    <Form.Control as="select" value={sortOrder} onChange={handleSortOrderChange}>
+                        <option value="newest">오래된 순 정렬</option>
+                        <option value="oldest">최신 순 정렬</option> 
+                    </Form.Control>
+                </Col>
             </Row>
 
             <Table striped bordered hover responsive>
@@ -113,7 +131,7 @@ const MemberList = () => {
                     {membersToShow.map((member, index) => (
                         <tr key={index} onClick={() => navigate(`/master/memberDetail/${member.email}`)} style={{ cursor: 'pointer' }}
                         className="table-row-hover">
-                            <td >{member.email}</td>
+                            <td>{member.email}</td>
                             <td>{member.username}</td>
                             <td>{member.telno}</td>
                             <td>{member.gender}</td>
@@ -130,9 +148,6 @@ const MemberList = () => {
             <Row className="justify-content-center">
                 <Col xs="auto">
                     <Pagination>
-                        <Pagination.Prev
-                            onClick={() => currentPage > 1 && handlePageChange(currentPage - 1)}
-                        />
                         {[...Array(totalPages)].map((_, index) => (
                             <Pagination.Item
                                 key={index}
@@ -142,9 +157,6 @@ const MemberList = () => {
                                 {index + 1}
                             </Pagination.Item>
                         ))}
-                        <Pagination.Next
-                            onClick={() => currentPage < totalPages && handlePageChange(currentPage + 1)}
-                        />
                     </Pagination>
                 </Col>
             </Row>

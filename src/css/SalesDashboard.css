@@ -1,0 +1,45 @@
+.sales-dashboard {
+    padding: 20px;
+    background-color: #f9f9f9;
+    font-family: Arial, sans-serif;
+  }
+  
+  .dashboard-title {
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 30px;
+    color: #333;
+  }
+  
+  .charts-container {
+    display: flex;
+    gap: 20px;
+    justify-content: space-around;
+    flex-wrap: wrap;
+  }
+  
+  .chart-card {
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    width: 45%;
+    padding: 20px;
+    text-align: center;
+    margin-bottom: 20px;
+    transition: transform 0.3s ease;
+  }
+  
+  .chart-card:hover {
+    transform: scale(1.05);
+  }
+  
+  .chart-title {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+    color: #007bff;
+  }
+  
+  .chart {
+    min-height: 300px;
+  }
+  

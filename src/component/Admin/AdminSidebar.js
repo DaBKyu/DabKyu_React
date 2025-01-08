@@ -58,15 +58,15 @@ const Sidebar = () => {
         리뷰 신고 관리
       </Link>
       <br /> 
-      <Link to="#" className="d-flex align-items-center indent">
+      <Link to="/master/salesDashBoard" className="d-flex align-items-center indent">
         <FaChartLine className="mr-2" />
         매출 통계
       </Link>
-      <Link to="#" className="d-flex align-items-center indent">
+      <Link to="/master/signUpDashBoard" className="d-flex align-items-center indent">
         <FaChartLine className="mr-2" />
         가입 통계
       </Link>
-      <Link to="#" className="d-flex align-items-center indent">
+      <Link to="/master/visitDashBoard" className="d-flex align-items-center indent">
         <FaChartLine className="mr-2" />
         방문 통계
       </Link>

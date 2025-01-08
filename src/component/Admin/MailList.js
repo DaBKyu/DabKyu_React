@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import AdminSidebar from './AdminSidebar';
+import { useNavigate } from 'react-router-dom';
 
 const MailList = () => {
   const [mails, setMails] = useState([]);
@@ -10,6 +11,7 @@ const MailList = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [searchTerm, setSearchTerm] = useState(''); // 검색어 상태 추가
   const mailsPerPage = 10;
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchMails = async () => {
@@ -62,6 +64,15 @@ const MailList = () => {
       <h1 className="text-center mb-4">이메일 발송 내역</h1>
       <AdminSidebar />
 
+      <div className="mb-4 d-flex justify-content-end">
+  <div>
+    <button className="btn btn-primary"
+   onClick={() => navigate('/master/sendMail')}>
+      이메일 발송하기
+    </button>
+  </div>
+</div>
+
       {/* 제목으로 검색할 수 있는 입력 필드 추가 */}
       <div className="mb-3">
         <input
@@ -84,7 +95,7 @@ const MailList = () => {
         </thead>
         <tbody>
           {currentMails.map((mail) => (
-            <tr key={mail.emailSeqno}>
+            <tr key={mail.emailSeqno} onClick={() => navigate(`/master/mailDetail/${mail.emailSeqno}`)} style={{ cursor: 'pointer' }}>
               <td>{mail.emailSeqno}</td>
               <td>{mail.emailTitle}</td>
               <td>{mail.emailContent}</td>

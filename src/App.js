@@ -25,6 +25,11 @@ import ReviewDetail from './component/Admin/ReviewDetail.js';
 import ReportList from './component/Admin/ReportList.js';
 import ReportDetail from './component/Admin/ReportDetail.js';
 import MailList from './component/Admin/MailList.js';
+import MailDetail from './component/Admin/MailDetail.js';
+import SendMail from './component/Admin/SendMail.js';
+import SalesDashBoard from './component/Admin/SalesDashBoard.js';
+import SignUpDashBoard from './component/Admin/SignUpDashBoard.js';
+import VisitDashBoard from './component/Admin/VisitDashBoard.js';
 const App = () => {
   return (
     <BrowserRouter> 
@@ -51,6 +56,11 @@ const App = () => {
         <Route path="/master/reportList" element={<ReportList />} />
         <Route path="/master/reportDetail/:reportSeqno" element={<ReportDetail />} />
         <Route path="/master/mailList" element={<MailList />} />
+        <Route path="/master/mailDetail/:emailSeqno" element={<MailDetail />} />
+        <Route path="/master/sendMail" element={<SendMail />} />
+        <Route path="/master/salesDashBoard" element={<SalesDashBoard />} />
+        <Route path="/master/signUpDashBoard" element={<SignUpDashBoard />} />
+        <Route path="/master/visitDashBoard" element={<VisitDashBoard />} />
       </Routes>
     </BrowserRouter>
   );
